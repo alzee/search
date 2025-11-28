@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Label;
 use App\Entity\SearchResult;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 
 #[AdminDashboard(routePath: '/admin', routeName: 'admin')]
 class DashboardController extends AbstractDashboardController
@@ -42,12 +43,26 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Search');
+            ->setTitle('Search')
+            ->renderContentMaximized()
+            ->renderSidebarMinimized()
+        ;
     }
 
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Search Result', 'fas fa-list', SearchResult::class);
+        yield MenuItem::linkToCrud('Label', 'fas fa-tag', Label::class);
+    }
+
+    public function configureCrud(): Crud
+    {
+        return Crud::new()
+            ->showEntityActionsInlined()
+            ->setTimezone('Asia/Shanghai')
+            ->setDateTimeFormat('yyyy/MM/dd HH:mm')
+            ->setDefaultSort(['id' => 'DESC'])
+        ;
     }
 }
