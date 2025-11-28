@@ -31,6 +31,9 @@ class SearchResult
     #[ORM\ManyToMany(targetEntity: Label::class)]
     private Collection $labels;
 
+    #[ORM\Column(type: Types::SMALLINT, nullable: true)]
+    private ?int $type = 0;
+
     public function __construct()
     {
         $this->labels = new ArrayCollection();
@@ -97,6 +100,18 @@ class SearchResult
     public function removeLabel(Label $label): static
     {
         $this->labels->removeElement($label);
+
+        return $this;
+    }
+
+    public function getType(): ?int
+    {
+        return $this->type;
+    }
+
+    public function setType(?int $type): static
+    {
+        $this->type = $type;
 
         return $this;
     }

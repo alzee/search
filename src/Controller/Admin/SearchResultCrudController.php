@@ -12,10 +12,14 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\ChoiceFilter;
 
 class SearchResultCrudController extends AbstractCrudController
 {
+    const TYPES = ['常规网页' => 0, '公众号' => 1];
+
     public static function getEntityFqcn(): string
     {
         return SearchResult::class;
@@ -25,8 +29,9 @@ class SearchResultCrudController extends AbstractCrudController
     {
         yield IdField::new('id')->onlyOnIndex();
         yield TextField::new('title');
-        yield ArrayField::new('labels')->onlyOnIndex();
-        yield AssociationField::new('labels')->hideOnIndex();
+        #yield ArrayField::new('labels')->onlyOnIndex();
+        #yield AssociationField::new('labels')->hideOnIndex();
+        yield ChoiceField::new('type')->setChoices(self::TYPES);
         yield UrlField::new('link');
         yield TextField::new('snippet');
     }
@@ -49,7 +54,7 @@ class SearchResultCrudController extends AbstractCrudController
     public function configureFilters(Filters $filters): Filters
     {
         return $filters
-            ->add('labels')
+            ->add(ChoiceFilter::new('type')->setChoices(self::TYPES))
         ;
     }
 }
