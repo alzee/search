@@ -42,7 +42,7 @@ class WxCrudController extends SearchResultCrudController
     {
         return $crud
             ->setPageTitle('index', '爬取结果 - 公众号')
-            // ->setHelp('index', 'haha')
+            ->setHelp('index', '微信公众号目前只能通过搜狗微信爬取，效果不理想')
         ;
     }
 }

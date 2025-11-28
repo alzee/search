@@ -60,6 +60,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('公众号', 'fas fa-list-alt', SearchResult::class)
             ->setController(WxCrudController::class)
         ;
+        yield MenuItem::linkToUrl('抖音/快手 TODO', 'fab fa-google', '#');
         yield MenuItem::linkToCrud('全部', 'fas fa-list-alt', SearchResult::class)
             ->setController(SearchResultCrudController::class)
         ;
