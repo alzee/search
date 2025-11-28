@@ -51,22 +51,22 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::linkToDashboard('Dashboard', 'fas fa-tachometer-alt');
 
         yield MenuItem::section('Search Result');
-        yield MenuItem::linkToCrud('常规网页', 'fas fa-list', SearchResult::class)
+        yield MenuItem::linkToCrud('常规网页', 'fas fa-globe', SearchResult::class)
             ->setController(WebPageCrudController::class)
         ;
-        yield MenuItem::linkToCrud('公众号', 'fas fa-list-alt', SearchResult::class)
+        yield MenuItem::linkToCrud('公众号', 'fab fa-weixin', SearchResult::class)
             ->setController(WxCrudController::class)
         ;
-        yield MenuItem::linkToUrl('抖音/快手 TODO', 'fab fa-google', '#');
-        yield MenuItem::linkToCrud('全部', 'fas fa-list-alt', SearchResult::class)
+        yield MenuItem::linkToUrl('抖音/快手 TODO', 'fas fa-video', '#');
+        yield MenuItem::linkToCrud('全部', 'fas fa-th-large', SearchResult::class)
             ->setController(SearchResultCrudController::class)
         ;
 
         yield MenuItem::section('');
-        yield MenuItem::linkToCrud('Label', 'fas fa-tag', Label::class);
+        yield MenuItem::linkToCrud('Label', 'fas fa-tags', Label::class);
     }
 
     public function configureCrud(): Crud
