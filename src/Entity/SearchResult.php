@@ -31,7 +31,7 @@ class SearchResult
     #[ORM\ManyToMany(targetEntity: Label::class)]
     private Collection $labels;
 
-    #[ORM\Column(type: Types::SMALLINT, nullable: true)]
+    #[ORM\Column(type: Types::SMALLINT)]
     private ?int $type = 0;
 
     public function __construct()
