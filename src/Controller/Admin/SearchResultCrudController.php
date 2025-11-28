@@ -15,7 +15,10 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\ChoiceFilter;
+use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminRoute;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 
+#[AdminRoute(path: '/results/all')]
 class SearchResultCrudController extends AbstractCrudController
 {
     const TYPES = ['常规网页' => 0, '公众号' => 1];
@@ -55,6 +58,14 @@ class SearchResultCrudController extends AbstractCrudController
     {
         return $filters
             ->add(ChoiceFilter::new('type')->setChoices(self::TYPES))
+        ;
+    }
+
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setPageTitle('index', '爬取结果 - 全部')
+            // ->setHelp('index', 'haha')
         ;
     }
 }

@@ -26,7 +26,7 @@ class DashboardController extends AbstractDashboardController
         //
         // 1.2) Same example but using the "ugly URLs" that were used in previous EasyAdmin versions:
         $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
-        return $this->redirect($adminUrlGenerator->setController(SearchResultCrudController::class)->generateUrl());
+        return $this->redirect($adminUrlGenerator->setController(WebPageCrudController::class)->generateUrl());
 
         // Option 2. You can make your dashboard redirect to different pages depending on the user
         //
@@ -43,16 +43,28 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Search')
+            ->setTitle('爬取结果')
             ->renderContentMaximized()
-            ->renderSidebarMinimized()
+            // ->renderSidebarMinimized()
         ;
     }
 
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Search Result', 'fas fa-list', SearchResult::class);
+
+        yield MenuItem::section('Search Result');
+        yield MenuItem::linkToCrud('常规网页', 'fas fa-list', SearchResult::class)
+            ->setController(WebPageCrudController::class)
+        ;
+        yield MenuItem::linkToCrud('公众号', 'fas fa-list-alt', SearchResult::class)
+            ->setController(WxCrudController::class)
+        ;
+        yield MenuItem::linkToCrud('全部', 'fas fa-list-alt', SearchResult::class)
+            ->setController(SearchResultCrudController::class)
+        ;
+
+        yield MenuItem::section('');
         yield MenuItem::linkToCrud('Label', 'fas fa-tag', Label::class);
     }
 
